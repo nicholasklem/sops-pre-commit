@@ -18,7 +18,7 @@ Add this to your `.pre-commit-config.yaml`:
 
 ```yaml
 - repo: https://github.com/nicholasklem/sops-pre-commit
-  rev: v2.2.7  # Use the ref you want to point at
+  rev: v2.2.7 # Use the ref you want to point at
   hooks:
     - id: forbid-secrets
 ```
@@ -26,13 +26,14 @@ Add this to your `.pre-commit-config.yaml`:
 ## What it checks
 
 1. Standard Kubernetes Secrets:
+
    - Ensures all Secret resources are encrypted with SOPS
    - Validates SOPS metadata structure
    - Checks for required SOPS fields (mac, lastmodified)
 
 2. Kustomize Secrets:
    - Prevents unencrypted literals in secretGenerator
-   - Requires encrypted files (*.enc.yaml or *.sops.yaml) in secretGenerator
+   - Requires encrypted files (_.enc.yaml or _.sops.yaml) in secretGenerator
    - Detects unencrypted secrets in nested patches
 
 ## Example Violations
@@ -66,14 +67,14 @@ patches:
 ```yaml
 # Using encrypted files
 secretGenerator:
-- name: valid-secrets
-  files:
-  - secrets.enc.yaml
-  - config.sops.yaml
+  - name: valid-secrets
+    files:
+      - secrets.enc.yaml
+      - config.sops.yaml
 
 # Using KSOPS
 generators:
-- ksops.yaml
+  - ksops.yaml
 ```
 
 ## Requirements
