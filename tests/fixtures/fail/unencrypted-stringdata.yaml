@@ -1,0 +1,4 @@
+kind: Secret
+stringData:
+  api_key: my-super-secret-api-key-123
+  config_json: '{"endpoint": "https://api.example.com"}'

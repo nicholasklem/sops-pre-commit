@@ -1,0 +1,6 @@
+kind: Secret
+data:
+  key: value
+sops:
+  encrypted_regex: "^(data|stringData)$"
+  version: "3.9.0"
