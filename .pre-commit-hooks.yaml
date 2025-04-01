@@ -3,4 +3,5 @@
   description: "Forbid files containing unencrypted Kubernetes secrets to be commited"
   entry: forbid_secrets
   language: python
-  types: [yaml, json]
+  types_or: [yaml, json]
+  files: \.(yaml|yml|json|enc\.yaml)$
