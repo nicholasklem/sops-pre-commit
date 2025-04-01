@@ -1,0 +1,2 @@
+include hooks/*.py
+include hooks/__init__.py

@@ -1,0 +1,13 @@
+apiVersion: viaduct.ai/v1
+kind: ksops
+metadata:
+  name: ksops-secret-generator
+secretFrom:
+  - metadata:
+      name: blueprints
+      annotations:
+        kustomize.config.k8s.io/needs-hash: 'true'
+        kustomize.config.k8s.io/behavior: merge
+    type: Opaque
+    envs:
+      - secrets/secret

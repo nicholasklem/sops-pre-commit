@@ -1,0 +1,6 @@
+kind: Secret
+data:
+  key: base64_encoded_but_not_encrypted
+sops:
+  mac: null
+  lastmodified: null

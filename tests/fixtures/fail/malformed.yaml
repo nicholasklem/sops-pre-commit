@@ -1,0 +1,6 @@
+# yamllint disable
+---
+kind: Secret
+data:
+  key: value
+  broken: [
