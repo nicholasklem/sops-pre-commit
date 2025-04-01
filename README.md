@@ -18,7 +18,7 @@ Add this to your `.pre-commit-config.yaml`:
 
 ```yaml
 - repo: https://github.com/nicholasklem/sops-pre-commit
-  rev: v2.2.7 # Use the ref you want to point at
+  rev: v3.0.0 # Use the ref you want to point at
   hooks:
     - id: forbid-secrets
 ```

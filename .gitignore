@@ -29,5 +29,16 @@ htmlcov/
 coverage.xml
 *.cover
 
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
 # Sops
 .decrypted~*.yaml
