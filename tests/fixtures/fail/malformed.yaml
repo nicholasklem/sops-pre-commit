@@ -1,0 +1,7 @@
+# yamllint disable
+---
+kind: Secret
+data:
+  # prettier-ignore
+  key: value
+  broken: [

@@ -1,0 +1,8 @@
+- id: forbid-secrets
+  name: Check for unencrypted Kubernetes secrets in any file
+  description: "Forbid files containing unencrypted Kubernetes secrets to be committed, regardless of extension"
+  entry: forbid_secrets
+  language: python
+  types: [text] # This will catch all text files
+  additional_dependencies:
+    - pyyaml>=5.1

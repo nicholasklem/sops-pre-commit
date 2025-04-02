@@ -1,0 +1,15 @@
+# Debug output containing kubectl get secret -o yaml
+DEBUG: Getting secret values
+Command: kubectl get secret mysecret -o yaml
+Result:
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+  namespace: default
+type: Opaque
+data:
+  username: YWRtaW4=
+  password: c3VwZXJzZWNyZXQ=
+
+DEBUG: End of secret dump

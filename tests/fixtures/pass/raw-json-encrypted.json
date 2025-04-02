@@ -1,0 +1,7 @@
+{
+  "data": "ENC[AES256_GCM,data:...]",
+  "sops": {
+    "mac": "encrypted-mac-value",
+    "lastmodified": "2024-03-29T12:00:00Z"
+  }
+}

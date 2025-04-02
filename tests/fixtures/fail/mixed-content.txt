@@ -1,0 +1,25 @@
+# Some random log output
+[2024-04-01 10:15:32] Starting application
+[2024-04-01 10:15:33] DEBUG: Loading configuration
+[2024-04-01 10:15:34] ERROR: Failed to connect to database
+
+# Debugging output from kubectl
+$ kubectl get secret mysecret -o yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+  namespace: default
+type: Opaque
+data:
+  username: YWRtaW4=  # admin
+  password: c3VwZXJzZWNyZXQ=  # supersecret
+
+[2024-04-01 10:15:35] Continuing application startup
+[2024-04-01 10:15:36] Service health check passed
+
+# More debugging
+$ kubectl describe pod mypod
+Name:         mypod
+Namespace:    default
+Status:       Running
