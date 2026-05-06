@@ -13,6 +13,7 @@ def check_secret(data, filename):
     2. Raw JSON/YAML files with data/stringData fields that should be encrypted
     3. Secret generator configurations referencing secret files
     4. Kustomize patches containing unencrypted secrets
+    5. SecretManagerSecretVersion resources with spec.secretData.value
     """
     if not isinstance(data, dict):
         return True
@@ -61,6 +62,25 @@ def check_secret(data, filename):
                         pass
         return True
 
+    # Check for SecretManagerSecretVersion resources (Google Cloud Config Connector)
+    if data.get("kind") == "SecretManagerSecretVersion":
+        # Check spec.secretData.value (valueFrom is a reference, no encryption needed)
+        spec = data.get("spec", {})
+        secret_data = spec.get("secretData", {})
+        if isinstance(secret_data, dict) and "value" in secret_data:
+            # spec.secretData.value is the literal secret and must be encrypted
+            if "sops" not in data:
+                print(f"Unencrypted SecretManagerSecretVersion found in {filename}")
+                print(
+                    "SecretManagerSecretVersion with spec.secretData.value "
+                    "must be encrypted"
+                )
+                print("Please encrypt data using SOPS before committing")
+                return False
+            return validate_sops_metadata(data, filename)
+        # spec.secretData.valueFrom or absent secretData: no encryption needed
+        return True
+
     # For Kubernetes resources, only check Secrets
     if "kind" in data:
         if data["kind"] != "Secret":
@@ -84,6 +104,7 @@ def check_secret(data, filename):
     # If not encrypted, check for non-empty data
     data_value = data.get("data")
     string_data_value = data.get("stringData")
+    secret_data_value = data.get("secretData")
 
     # For dict values, check if any values are non-empty
     if isinstance(data_value, dict):
@@ -98,7 +119,14 @@ def check_secret(data, filename):
     else:
         has_string_data = string_data_value is not None and string_data_value != ""
 
-    if has_data or has_string_data:
+    if isinstance(secret_data_value, dict):
+        has_secret_data = any(
+            v for v in secret_data_value.values() if v is not None and v != ""
+        )
+    else:
+        has_secret_data = secret_data_value is not None and secret_data_value != ""
+
+    if has_data or has_string_data or has_secret_data:
         print(f"Unencrypted sensitive data found in {filename}")
         print("Please encrypt data using SOPS before committing")
         return False
